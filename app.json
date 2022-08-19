@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "Api-integration",
+    "slug": "Api-integration",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "Api-integration"
+}
