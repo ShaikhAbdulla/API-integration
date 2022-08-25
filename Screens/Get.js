@@ -1,9 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 // import { useRoute } from '@react-navigation/native';
+import Download from '../Assets/Download.jpg';
 
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView,Button } from 'react-native';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+// import NavigationBar from 'react-native-navbar';
 
 export default function Get({ navigation }) {
     const [data, setData] = useState([]);
@@ -38,6 +40,7 @@ export default function Get({ navigation }) {
 
     return (<ScrollView>
         <View style={styles.container1}>
+         
             <View
                 style={styles.container0}
             >
@@ -64,7 +67,7 @@ export default function Get({ navigation }) {
               /> */}
                         {/* <Image style={styles.image} source={image}/> */}
                        
-                        <TouchableOpacity style={styles.namebut} onPress={() => navigation.navigate('INTERNS_INFO', data)}>
+                        <TouchableOpacity style={styles.namebut} onPress={() => navigation.navigate('Details', data)}>
 
                             <Text style={styles.names}>{data.name}</Text>
                             <Text style={styles.desig}>{data.designation}</Text></TouchableOpacity>
@@ -74,7 +77,7 @@ export default function Get({ navigation }) {
 
                         <StatusBar style="auto" />
                         <View style={styles.imgcontainer}>
-                            <Image style={styles.image} source={img} />
+                            <Image style={styles.image} source={Download} />
                         </View>
                     </View>
                     
@@ -97,8 +100,8 @@ const styles = StyleSheet.create({
         // alignContent:'center',
 
         // backgroundColor: '#FFCE33',
-        height: '100%',
-
+        height:'120%',
+        backgroundColor: 'white',
 
     },
     container0: {
@@ -114,10 +117,13 @@ const styles = StyleSheet.create({
         width: 290,
         backgroundColor: 'white',
         flexDirection: 'row',
-        shadowColor: '#470000',
-        shadowOffset: { width: 6, height: 6 },
-        shadowOpacity: 0.3,
-        elevation: 10,
+        shadowColor: 'black',
+        // shadowColor: '#470000',
+        shadowOffset: { width:10, height: 10 },
+        shadowOpacity: 0.8,
+        elevation: 20,
+        // shadowRadius:20,
+        
 
     },
 
@@ -164,5 +170,8 @@ const styles = StyleSheet.create({
         position:'absolute',
         left:75,
         top:30,
+    },
+    header:{
+        backgroundColor:'black'
     }
 });

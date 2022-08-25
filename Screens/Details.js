@@ -1,12 +1,16 @@
-import React from 'react';
+import React ,{ useEffect, useState } from 'react';
 import Download from '../Assets/Download.jpg';
 import editing from '../Assets/editing.png';
 import bin from '../Assets/bin.png';
+// import React,  from "react";
+// import { Shadow } from 'react-native-neomorph-shadows';
 // import { useRoute } from '@react-navigation/native';
 
 import { StyleSheet , Text , View , Image, TouchableOpacity,Alert } from 'react-native';
-import { Button } from 'react-native-web';
-
+// import { Button } from 'react-native-web';
+import axios from 'axios';
+import InsetShadow from "react-native-inset-shadow";
+// import InsetShadow from 'react-native-inset-shadow'
 // import  { useEffect, useState } from "react";
 // import axios from "axios";
 
@@ -14,20 +18,64 @@ const Details = ({navigation}) => {
     const altImg = "https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701__340.png";
     //     const img1 = data.profile_image == null ? altImg : data.profile_image;
     // console.log('data',data)
+    const internDelete=(id)=>{
+        // e.preventDefault();
+        // setLoading(true);
+        axios.delete("https://interns-new.herokuapp.com/list/"+id
+        // , formData
+        )
+                .then(res => {
+                    // setLoading(true);
+                    console.log("Deleted", res);
+                })
+                .catch((err) =>{
+                    // setLoading(false);
+                    console.log(err)}) ;
+                }
+            //  const getagain=()=> { 
+              
+
+            //       // setLoading(true);
+            //       axios.get("https://interns-new.herokuapp.com/list")
+            //           .then((res) => {
+            //               // return console.log(res.data.result);
+            //               const data = res.data.result;
+            //               // setLoading(false);
+            //               console.log(data)
+            //               setData(data);
+            //           })
+            //           .catch((err) => console.log(err));
+            //   } ;
+    
+    
+    const id=navigation.getParam('id');
+    const nav=()=>{
+      navigation.goback('INTERNS');
+    }
   return (<View style={styles.container2}>
    {/* <Image style={styles.bgimg} source={Download}/> */}
    
-  <View style={styles.datacontainer}>
+  <View 
+  style={styles.datacontainer}
+  >
   {/* <View style={styles.imgcontainer}> */}
   
 
   {/* </View> */}
  {/* <Text style={styles.data}>{navigation.getParam('profile_image')== null? altImg : navigation.getParam('profile_image')}</Text> */}
  <View style={styles.imgcont}>
-   <Image style={styles.img} source={navigation.getParam('profile_image') == null? altImg : navigation.getParam('profile_image') }/>
+   <Image style={styles.img} source={Download}
+//    {navigation.getParam('profile_image') == null? altImg : navigation.getParam('profile_image') }
+   />
    </View>
    <View style={styles.textcont}>
-   <Text style={styles.data}>Employe id : {navigation.getParam('id')}</Text>
+   {/* <Shadow
+  inner // <- enable inner shadow
+  useArt // <- set this prop to use non-native shadow on ios
+  style={styles.inner}
+> */}
+   <Text style={styles.data}>Employe id : {id} </Text>
+   {/* </Shadow> */}
 
     <Text style={styles.data}>Name : {navigation.getParam('name')}</Text>
     <Text style={styles.data}>Contact No : {navigation.getParam('mobile')}</Text>
@@ -36,14 +84,32 @@ const Details = ({navigation}) => {
     
 
     </View>
-    <TouchableOpacity style={styles.edit} onPress={()=> navigation.navigate('EDIT',navigation)}><Image style={styles.icon} source={editing}/></TouchableOpacity>
+    <TouchableOpacity style={styles.edit} onPress={()=> navigation.navigate('EDIT')}><Image style={styles.icon} source={editing}/></TouchableOpacity>
     <TouchableOpacity style={styles.delete}
-     onPress={()=>Alert.alert('you sure you want to delete')
+     onPress={()=> Alert.alert(
+        "Are you sure you Want to Delete This?",
+        "The Intern will be deleted permanently",
+        [
+          {
+            text: "Cancel",
+            onPress: () => null,
+            style: "cancel"
+          },
+          { text: "YES", onPress: () => 
+          // internDelete(id)
+          {internDelete(id);
+        nav();
+      // getagain()
+    }
+      }
+        ]
+      )
     //  navigation.navigate('EDIT',data)
     }
      ><Image style={styles.icon} source={bin}/></TouchableOpacity>
    
     </View>
+  
 
 
     </View>
@@ -56,9 +122,11 @@ const styles = StyleSheet.create({
         textAlign:'center',
         justifyContent:'center',
         alignItems:'center',
+        padding:1
        
     },
     datacontainer:{
+        
         padding:20,
         height:'89%',
         width:'90%',
@@ -68,10 +136,11 @@ const styles = StyleSheet.create({
         alignItems:'center',
         backgroundColor:'white',
         // backgroundColor:'#00C9A7',
-        shadowColor: '#470000',
+        shadowColor: 'black',
         shadowOffset: { width: 6, height: 6 },
         shadowOpacity: 0.3,
         elevation: 10,
+        marginBottom:35,
        
        
         // width:300,
@@ -87,7 +156,7 @@ const styles = StyleSheet.create({
         fontSize:22,
         fontWeight:'bold',
         borderRadius:10,
-        shadowColor: '#470000',
+        shadowColor: 'black',
         shadowOffset: { width: 6, height: 6 },
         shadowOpacity: 0.3,
         elevation: 10,
@@ -145,7 +214,18 @@ const styles = StyleSheet.create({
         position:'absolute',
         top:5,
        left:5
-    }
+    },
+    // inner:{
+    //     shadowOffset: {width: 10, height: 10},
+    //     shadowOpacity: 1,
+    //     shadowColor: "grey",
+    //     shadowRadius: 10,
+    //     borderRadius: 20,
+    //     backgroundColor: 'white',
+    //     width: 100,
+    //     height: 100,
+    //     // ...include most of View/Layout styles
+    //   }
 
 
 })

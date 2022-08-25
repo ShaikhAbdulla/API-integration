@@ -18,7 +18,7 @@ const Edit = ({navigation}) => {
 
 
     return (<View style={styles.container}>
-        <View><Text>{navigation.getParam('name')}</Text></View>
+        <View><Text>{navigation.getParam('id')}</Text></View>
         <View><TextInput style={styles.tfield} value={navigation.getParam('name')}></TextInput></View>
         <View><TextInput style={styles.tfield} >{navigation.getParam('mobile')}</TextInput></View>
         <View><TextInput style={styles.tfield} >{navigation.getParam('designation')}</TextInput></View>
