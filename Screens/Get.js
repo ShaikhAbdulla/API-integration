@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 // import { useRoute } from '@react-navigation/native';
 import Download from '../Assets/Download.jpg';
+import editing from '../Assets/editing.png';
 
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView,Button } from 'react-native';
 import React, { useEffect, useState } from "react";
@@ -79,6 +80,9 @@ export default function Get({ navigation }) {
                         <View style={styles.imgcontainer}>
                             <Image style={styles.image} source={Download} />
                         </View>
+                        <TouchableOpacity style={styles.edit} onPress={()=> navigation.navigate('EDIT', data)}>
+                            <Image style={styles.icon} source={editing}/>
+                            </TouchableOpacity>
                     </View>
                     
 
@@ -173,5 +177,10 @@ const styles = StyleSheet.create({
     },
     header:{
         backgroundColor:'black'
+    },
+    icon:{
+        height:20,
+        width:20,
+        right:20,
     }
 });

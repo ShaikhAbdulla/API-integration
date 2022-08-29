@@ -84,7 +84,7 @@ const Details = ({navigation}) => {
     
 
     </View>
-    <TouchableOpacity style={styles.edit} onPress={()=> navigation.navigate('EDIT')}><Image style={styles.icon} source={editing}/></TouchableOpacity>
+    {/* <TouchableOpacity style={styles.edit} onPress={()=> navigation.navigate('EDIT')}><Image style={styles.icon} source={editing}/></TouchableOpacity> */}
     <TouchableOpacity style={styles.delete}
      onPress={()=> Alert.alert(
         "Are you sure you Want to Delete This?",
