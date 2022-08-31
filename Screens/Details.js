@@ -2,6 +2,7 @@ import React ,{ useEffect, useState } from 'react';
 import Download from '../Assets/Download.jpg';
 import editing from '../Assets/editing.png';
 import bin from '../Assets/bin.png';
+
 // import React,  from "react";
 // import { Shadow } from 'react-native-neomorph-shadows';
 // import { useRoute } from '@react-navigation/native';
@@ -9,15 +10,22 @@ import bin from '../Assets/bin.png';
 import { StyleSheet , Text , View , Image, TouchableOpacity,Alert } from 'react-native';
 // import { Button } from 'react-native-web';
 import axios from 'axios';
-import InsetShadow from "react-native-inset-shadow";
+// import InsetShadow from "react-native-inset-shadow";
 // import InsetShadow from 'react-native-inset-shadow'
 // import  { useEffect, useState } from "react";
 // import axios from "axios";
-
+// import empty from '../Assets/empty.png';
+// import hearts from '../Assets/hearts.png';
 const Details = ({navigation}) => {
     const altImg = "https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701__340.png";
+
+
+    const[heart,setHeart]=useState('🖤')
     //     const img1 = data.profile_image == null ? altImg : data.profile_image;
     // console.log('data',data)
+    const fav =()=>{
+      setHeart('♥');
+    }
     const internDelete=(id)=>{
         // e.preventDefault();
         // setLoading(true);
@@ -31,7 +39,7 @@ const Details = ({navigation}) => {
                 .catch((err) =>{
                     // setLoading(false);
                     console.log(err)}) ;
-                }
+                
             //  const getagain=()=> { 
               
 
@@ -46,11 +54,11 @@ const Details = ({navigation}) => {
             //           })
             //           .catch((err) => console.log(err));
             //   } ;
-    
+            }
     
     const id=navigation.getParam('id');
     const nav=()=>{
-      navigation.goback('INTERNS');
+      navigation.navigate('Get');
     }
   return (<View style={styles.container2}>
    {/* <Image style={styles.bgimg} source={Download}/> */}
@@ -58,6 +66,10 @@ const Details = ({navigation}) => {
   <View 
   style={styles.datacontainer}
   >
+  <TouchableOpacity style={styles.edit} onPress={fav} >
+  {/* <Image style={styles.iconh} source={heart}/> */}
+<Text style={styles.iconh}>{heart}</Text>
+  </TouchableOpacity>
   {/* <View style={styles.imgcontainer}> */}
   
 
@@ -84,7 +96,7 @@ const Details = ({navigation}) => {
     
 
     </View>
-    {/* <TouchableOpacity style={styles.edit} onPress={()=> navigation.navigate('EDIT')}><Image style={styles.icon} source={editing}/></TouchableOpacity> */}
+    {/* <View style={styles.ht}><TouchableOpacity style={styles.edit} onPress={fav} ><Image style={styles.iconh} source={heart}/></TouchableOpacity></View> */}
     <TouchableOpacity style={styles.delete}
      onPress={()=> Alert.alert(
         "Are you sure you Want to Delete This?",
@@ -203,8 +215,10 @@ const styles = StyleSheet.create({
     },
     edit:{
         position:'absolute',
-        top:5,
-        right:5
+        top:-5,
+        right:5,
+        // width:40,
+        
     },
     icon:{
        height:30,
@@ -215,6 +229,18 @@ const styles = StyleSheet.create({
         top:5,
        left:5
     },
+    iconh:{
+     fontSize:40,
+     fontWeight:'bold',
+
+    },
+    // ht:{
+    //   position:'absolute',
+    //     top:3,
+    //     right:7,
+    //   height:50,
+    //   width:50,
+    // }
     // inner:{
     //     shadowOffset: {width: 10, height: 10},
     //     shadowOpacity: 1,

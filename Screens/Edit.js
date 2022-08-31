@@ -5,7 +5,7 @@ import { useRoute } from '@react-navigation/native';
 
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from 'react-native';
 import { useEffect, useState } from "react";
-import Axios from "axios";
+import axios from 'axios';
 
 
 const Edit = ({ navigation }) => {
@@ -18,7 +18,9 @@ const Edit = ({ navigation }) => {
 
     const id = navigation.getParam('id');
 
-
+const nav =()=>{
+    navigation.navigate('Get')
+}
     function handleUpdate(id, name, mobile, designation, email,
         //  profile_image
          ) {
@@ -34,7 +36,7 @@ const Edit = ({ navigation }) => {
         // setHeader("Your Profile Got Updated!!")
         // setLoading(false);
 
-        Axios.put("https://interns-new.herokuapp.com/list/" + id, formData)
+        axios.put("https://interns-new.herokuapp.com/list/" + id, formData)
             .then(res => {
 
                 console.log("posting data", res);
@@ -58,9 +60,9 @@ const Edit = ({ navigation }) => {
         <View><TextInput style={styles.tfield} value={desig} onChange={(e) => setDesig(e.target.value)}></TextInput></View>
         <View><TextInput style={styles.tfield} value={email} onChange={(e) => setEmail(e.target.value)}></TextInput></View>
         <TouchableOpacity style={styles.submit}
-            onPress={handleUpdate(id, name, mobile, desig, email, 
+            onPress={()=> {handleUpdate(id, name, mobile, desig, email, 
             // profile_image
-            )}>
+            );nav()}}>
             <Text style={styles.sub}>SUBMIT</Text>
         </TouchableOpacity>
 
