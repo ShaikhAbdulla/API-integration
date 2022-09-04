@@ -2,15 +2,17 @@ import { StatusBar } from 'expo-status-bar';
 // import { useRoute } from '@react-navigation/native';
 import Download from '../Assets/Download.jpg';
 import editing from '../Assets/editing.png';
-
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView,Button } from 'react-native';
+import loader from '../Assets/loader.gif';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView,RefreshControl } from 'react-native';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 // import NavigationBar from 'react-native-navbar';
 
-export default function Get({ navigation }) {
+export default function Get({ navigation }) 
+{
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    // const[refresh,setRefresh]=useState(false)
 
     //   const detail = () => {
     //     navigation.navigate('Info')
@@ -19,27 +21,60 @@ export default function Get({ navigation }) {
     //     console.log('i got clicked!!')
     //   }
 
+// const getInterns= ()=>{
+    
 
 
+// const pullme=()=>{
+//     setRefresh(true)
+//     setTimeout(()=>{
+// setRefresh(false)
+//     },10000)
+//     {window.location.reload(false)};
+    
+// }
+
+const getAgain=
     useEffect(() => {
+        // navigation.addListener('focus', async() =>{
 
         setLoading(true);
-        axios.get("https://interns-new.herokuapp.com/list")
+        // await
+         axios
+        .get("https://interns-new.herokuapp.com/list")
             .then((res) => {
                 // return console.log(res.data.result);
                 const data = res.data.result;
-                setLoading(false);
+               
                 console.log(data)
                 setData(data);
+                setLoading(false);
             })
             .catch((err) => console.log(err));
-    }, []);
+        // })
+     }, []
 
+    );
 
+// }
     //   const route=useRoute();
 
+if (loading){
+    return (<View style={styles.loadcont}>
+        <Text style={styles.load}>Please Wait While we load!</Text>
+        <Image style={styles.loader} source={loader}/>
+        </View>
+    )
+}
 
-    return (<ScrollView>
+    return (<ScrollView
+//     refreshControl={
+//     <RefreshControl
+// refreshing={refresh}
+// onRefresh={()=>pullme()}
+//     />
+//     }
+    >
         <View style={styles.container1}>
          
             <View
@@ -80,7 +115,7 @@ export default function Get({ navigation }) {
                         <View style={styles.imgcontainer}>
                             <Image style={styles.image} source={Download} />
                         </View>
-                        <TouchableOpacity style={styles.edit} onPress={()=> navigation.navigate('EDIT', data)}>
+                        <TouchableOpacity style={styles.edit} onPress={()=> navigation.navigate('EDIT', data,{getAgain:getAgain})}>
                             <Image style={styles.icon} source={editing}/>
                             </TouchableOpacity>
                     </View>
@@ -95,7 +130,8 @@ export default function Get({ navigation }) {
         </View>
 
     </ScrollView>);
-}
+    }
+
 
 const styles = StyleSheet.create({
     container1: {
@@ -183,5 +219,20 @@ const styles = StyleSheet.create({
         width:20,
         right:25,
         margin:5
+    },
+    load:{
+        fontSize:20,
+        fontWeight:'bold',
+       
+   
+    },
+    loadcont:{
+      
+        marginTop:250,
+        alignItems:'center',
+    },
+    loader:{
+        height:40,
+        width:40,
     }
 });

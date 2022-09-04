@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{ComponentWillUnmount} from 'react';
 import Download from '../Assets/Download.jpg';
 import editing from '../Assets/editing.png'
 import { useRoute } from '@react-navigation/native';
@@ -6,24 +6,66 @@ import { useRoute } from '@react-navigation/native';
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from 'react-native';
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import loader from '../Assets/loader.gif';
+import ImagePicker from 'react-native-image-picker'
+// import { Picker } from 'react-native-web';
 
 
-const Edit = ({ navigation }) => {
+const Edit = ({ navigation,route }) => {
+
+//    const route=useRoute();
 
     const [name, setName] = useState(navigation.getParam('name'));
     const [mobile, setMobile] = useState(navigation.getParam('mobile'));
     const [desig, setDesig] = useState(navigation.getParam('designation'));
     const [email, setEmail] = useState(navigation.getParam('email'));
     // const [profile_image, setProfile_image] = useState(navigation.getParam('profile_image'))
-
+    const [loading, setLoading] = useState(false);
     const id = navigation.getParam('id');
+// const get=()=>{
+//     route.param.getAgain;
+// }
+// const options={
+//     title:'pick an image',
+//     storageOptions:{
+//         skipBackup:true,
+//         path:'images',
+//     },
+// };
+
+// const openPicker=()=>{
+//     ImagePicker.launchImageLibrary(options,(response)=>{
+//         if(response.didCancel){
+//             console.log('User cancelled Image Picker');
+//         }   else if(response.error){
+//             console.log('Image picker error:',response.error)
+//         } else if(response.customeButton){
+//             console.log('User Tapped CustomButton',response.customeButton)
+//         }else {
+//             const source={uri:response.uri};
+//         }
+       
+//     })
+// }
+
+
+
 
 const nav =()=>{
+    
     navigation.navigate('Get')
+    // componentWillUnmount
+    // {
+    //     alert('im pressed')
+    //     const {params}=this.props.navigation.state;
+    //     params.callGet();
+    // }
+  
 }
     function handleUpdate(id, name, mobile, designation, email,
         //  profile_image
          ) {
+            setLoading(false)
         const formData = new FormData();
         //         // setHeadingText("Your form got submitted!!");
         formData.append("id", id);
@@ -35,25 +77,35 @@ const nav =()=>{
         // formData.append("profile_image", profile_image);
         // setHeader("Your Profile Got Updated!!")
         // setLoading(false);
-
+       
         axios.put("https://interns-new.herokuapp.com/list/" + id, formData)
+       
             .then(res => {
 
                 console.log("posting data", res);
             })
-            // setLoading(true)
+          
             .catch((error) => console.log(error));
         console.log(formData)
+        setLoading(true)
     }
 
 
-
+    if (loading){
+        return (<View style={styles.loadcont}>
+            <Text style={styles.load}>Please Wait Your Profile is Being Updated!</Text>
+            <Image style={styles.loader} source={loader}/>
+            </View>
+        )
+    }
     // console.log("navigate",navigation)
 
 
 
     return (<View style={styles.container}>
-         {/* <Image source={profile_image} style={styles.img} ></Image> */}
+    <TouchableOpacity >
+         <Image  style={styles.img} ></Image>
+         </TouchableOpacity>
         <View><Text>{id}</Text></View>
         <View><TextInput style={styles.tfield} value={name} onChange={(e) => setName(e.target.value)}></TextInput></View>
         <View><TextInput style={styles.tfield} value={mobile} onChange={(e) => setMobile(e.target.value)}></TextInput></View>
@@ -62,7 +114,10 @@ const nav =()=>{
         <TouchableOpacity style={styles.submit}
             onPress={()=> {handleUpdate(id, name, mobile, desig, email, 
             // profile_image
-            );nav()}}>
+            )
+            ;nav()
+            // ;get()
+            }}>
             <Text style={styles.sub}>SUBMIT</Text>
         </TouchableOpacity>
 
@@ -86,8 +141,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'grey',
         height: 50,
         width: 300,
+        borderRadius:10,
     },
     submit: {
+        borderRadius:10,
         backgroundColor: '#FF7B7B',
         height: 30,
         width: 70,
@@ -100,6 +157,22 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         height: 100,
         width: 100,
+    },
+    load:{
+        fontSize:20,
+        fontWeight:'bold',
+        textAlign:'center',
+       
+   
+    },
+    loadcont:{
+      
+        marginTop:250,
+        alignItems:'center',
+    },
+    loader:{
+        height:40,
+        width:40,
     }
 })
 
