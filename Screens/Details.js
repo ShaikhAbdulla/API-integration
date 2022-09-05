@@ -17,11 +17,12 @@ import axios from 'axios';
 // import empty from '../Assets/empty.png';
 // import hearts from '../Assets/hearts.png';
 const Details = ({navigation}) => {
+  const image=navigation.getParam('profile_image');
     const altImg = "https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701__340.png";
 
-
+    const img1 = image == null ? altImg : image ;
     const[heart,setHeart]=useState('🖤')
-    //     const img1 = data.profile_image == null ? altImg : data.profile_image;
+       
     // console.log('data',data)
     const fav =()=>{
       setHeart('♥');
@@ -39,26 +40,14 @@ const Details = ({navigation}) => {
                 .catch((err) =>{
                     // setLoading(false);
                     console.log(err)}) ;
-                
-            //  const getagain=()=> { 
-              
-
-            //       // setLoading(true);
-            //       axios.get("https://interns-new.herokuapp.com/list")
-            //           .then((res) => {
-            //               // return console.log(res.data.result);
-            //               const data = res.data.result;
-            //               // setLoading(false);
-            //               console.log(data)
-            //               setData(data);
-            //           })
-            //           .catch((err) => console.log(err));
-            //   } ;
             }
     
     const id=navigation.getParam('id');
     const nav=()=>{
       navigation.navigate('Get');
+    }
+    const Pimage=()=>{
+      navigation.navigate('Profileimg',{profile:{img1}});
     }
   return (<View style={styles.container2}>
    {/* <Image style={styles.bgimg} source={Download}/> */}
@@ -76,9 +65,38 @@ const Details = ({navigation}) => {
   {/* </View> */}
  {/* <Text style={styles.data}>{navigation.getParam('profile_image')== null? altImg : navigation.getParam('profile_image')}</Text> */}
  <View style={styles.imgcont}>
-   <Image style={styles.img} source={Download}
+   {/* <Image style={styles.img} source={Download}
 //    {navigation.getParam('profile_image') == null? altImg : navigation.getParam('profile_image') }
-   />
+   /> */}
+   <TouchableOpacity  onPress={()=> Alert.alert(
+        "View Image in Full",
+        "",
+        [
+          {
+            text: "Cancel",
+            onPress: () => null,
+            style: "cancel"
+          },
+          { text: "View Image", onPress: () => 
+          // internDelete(id)
+          {
+            
+        Pimage();
+      // getagain()
+    }
+      }
+        ]
+      )
+    //  navigation.navigate('EDIT',data)
+    }>
+    <Image style={styles.img}
+                                source={{
+                                    uri: img1,
+                                    
+                                }}
+                                // style={{ width: 129, height: 129,borderRadius:65}}
+                            />
+                            </TouchableOpacity>
    </View>
    <View style={styles.textcont}>
    {/* <Shadow

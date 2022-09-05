@@ -7,7 +7,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from 'reac
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import loader from '../Assets/loader.gif';
-import ImagePicker from 'react-native-image-picker'
+import {launchCamera,launchImageLibrary} from 'react-native-image-picker'
 // import { Picker } from 'react-native-web';
 
 
@@ -100,11 +100,21 @@ const nav =()=>{
     }
     // console.log("navigate",navigation)
 
+    const image=navigation.getParam('profile_image');
+    const altImg = "https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701__340.png";
 
+    const img1 = image == null ? altImg : image ;
 
     return (<View style={styles.container}>
     <TouchableOpacity >
-         <Image  style={styles.img} ></Image>
+    <Image 
+    // style={styles.img}
+                                source={{
+                                    uri: img1,
+                                    
+                                }}
+                                style={{ width: 100, height: 100,borderRadius:65}}
+                            />
          </TouchableOpacity>
         <View><Text>{id}</Text></View>
         <View><TextInput style={styles.tfield} value={name} onChange={(e) => setName(e.target.value)}></TextInput></View>

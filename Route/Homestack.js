@@ -1,16 +1,17 @@
 import { createStackNavigator } from "react-navigation-stack";
-import {createAppContainer} from "react-navigation";
+import { createAppContainer } from "react-navigation";
 import Get from "../Screens/Get";
 import Details from "../Screens/Details";
 import Edit from '../Screens/Edit.js';
+import Profileimage from "../Screens/Profileimage.js";
 import react from "react";
-import { StyleSheet , Text , View , Image, TouchableOpacity,Alert,Button } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, Button } from 'react-native';
 
 
 // const screens ={
 // INTERNS:{
 //     screen:Get,
-  
+
 // },
 // INTERNS_INFO:{
 //     screen:Details
@@ -20,31 +21,31 @@ import { StyleSheet , Text , View , Image, TouchableOpacity,Alert,Button } from 
 // }
 
 // }
-const screens ={
-    Get:{
-        screen:Get,
-        navigationOptions:{
+const screens = {
+    Get: {
+        screen: Get,
+        navigationOptions: {
             title: "INTERNS",
-            headerStyle:{
-            backgroundColor: 'gray',
+            headerStyle: {
+                backgroundColor: 'gray',
             },
             headerTintColor: 'white',
             headerTitleStyle: {
                 fontWeight: 'bold',
             },
-            
+
             // headerShown:false,
-           
+
         },
-       
-       
+
+
     },
-    Details:{
-        screen:Details,
-        navigationOptions:{
+    Details: {
+        screen: Details,
+        navigationOptions: {
             title: "INTERNS_INFO",
-            headerStyle:{
-            backgroundColor: 'gray',
+            headerStyle: {
+                backgroundColor: 'gray',
             },
             headerTintColor: 'white',
             headerTitleStyle: {
@@ -52,12 +53,18 @@ const screens ={
             }
         }
     },
-    EDIT:{
-            screen:Edit
-         }
-    
-    
-    }
-const HomeStack=createStackNavigator(screens);
+    EDIT: {
+        screen: Edit
+    },
+
+    Profileimg: {
+        screen: Profileimage,
+    },
+}
+   
+
+
+
+const HomeStack = createStackNavigator(screens);
 
 export default createAppContainer(HomeStack)
