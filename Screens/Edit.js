@@ -3,7 +3,7 @@ import Download from '../Assets/Download.jpg';
 import editing from '../Assets/editing.png'
 import { useRoute } from '@react-navigation/native';
 
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput,PermissionsAndroid } from 'react-native';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import loader from '../Assets/loader.gif';
@@ -11,7 +11,7 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 // import { Picker } from 'react-native-web';
 
 
-const Edit = ({ navigation, route }) => {
+const Edit = ({ navigation }) => {
 
     //    const route=useRoute();
 

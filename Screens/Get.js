@@ -58,7 +58,7 @@ export default function Get({ navigation }) {
                 setData(data);
                 setLoading(false);
             })
-            .catch((err) => console.log(err));
+            .catch((err)=>console.log(err));
         // })
     }
     const internDelete = (id) => {

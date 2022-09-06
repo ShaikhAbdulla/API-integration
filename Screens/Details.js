@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Download from '../Assets/Download.jpg';
 import editing from '../Assets/editing.png';
 import bin from '../Assets/bin.png';
-
+import imgedit from '../Assets/imgedit.png'
 // import React,  from "react";
 // import { Shadow } from 'react-native-neomorph-shadows';
 // import { useRoute } from '@react-navigation/native';
@@ -112,14 +112,22 @@ const Details = ({ navigation }) => {
 
                 }}
                 style={{
-                  width: '100%', height: 350
+                  width: 373, height: 350
                   // ,borderRadius:65
                 }}
               />
-              <TouchableOpacity style={{ position: 'absolute', left: 8, top: 5, }} onPress={() => {
+              <View style={{flexDirection:'row', position: 'absolute', left: 8, top: 5,}}>
+              <TouchableOpacity  onPress={() => {
                 setShow(false)
               }}><Text style={{ fontSize: 40, color: 'white', transform: [{ rotate: '180deg' }] }}>➔</Text></TouchableOpacity>
-              <Text style={{ fontSize: 30, color: 'white', position: 'absolute', left: 70, top: 5 }}>{navigation.getParam('name')}</Text>
+              <Text style={{ fontSize: 25, color: 'white',top:5,  left: 30 }}>{navigation.getParam('name')}</Text>
+              
+              </View>
+              <View style={{left:153,bottom:483}}>
+              <TouchableOpacity >
+              <Image source={imgedit} style={{height:40,width:40,}}/>
+              </TouchableOpacity>
+              </View>
             </View>
           </View>
         </Modal>
