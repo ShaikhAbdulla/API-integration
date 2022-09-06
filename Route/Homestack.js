@@ -3,8 +3,6 @@ import { createAppContainer } from "react-navigation";
 import Get from "../Screens/Get";
 import Details from "../Screens/Details";
 import Edit from '../Screens/Edit.js';
-import Profileimage from "../Screens/Profileimage.js";
-import react from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, Button } from 'react-native';
 
 
@@ -57,11 +55,9 @@ const screens = {
         screen: Edit
     },
 
-    Profileimg: {
-        screen: Profileimage,
-    },
+
 }
-   
+
 
 
 

@@ -144,7 +144,7 @@ export default function Get({ navigation }) {
                                     // },
                                     // body: 'Your Body goes here'
                                 }}
-                                // style={{ width: 80, height: 80,borderRadius:40}}
+                            // style={{ width: 80, height: 80,borderRadius:40}}
                             />
                             {/* <Image style={styles.image}  */}
                             {/* // source={{uri:`${img}`}}  */}
