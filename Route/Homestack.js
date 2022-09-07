@@ -35,7 +35,7 @@ const screens = {
             },
             
 
-            headerShown:false,
+            // headerShown:false,
 
         },
 

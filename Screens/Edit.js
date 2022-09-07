@@ -5,7 +5,7 @@ import { useRoute } from '@react-navigation/native';
 
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput,PermissionsAndroid } from 'react-native';
 import { useEffect, useState } from "react";
-import Axios from 'axios';
+import axios from 'axios';
 import loader from '../Assets/loader.gif';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 // import { Picker } from 'react-native-web';
@@ -62,25 +62,42 @@ const Edit = ({ navigation }) => {
         // }
 
     }
+    
+//     const handleUpdate = async (
+//         name,mobile,designation,email
+//         ) => {
+//         // const formData = new FormData()
+//         // // setHeadingText("Your form got submitted!!");
+//         // formData.append("name", name);
+//         // formData.append("email", email);
+//         // formData.append("mobile", mobile);
+//         // formData.append("designation", designation);
+//         // // formData.append("profile_image", profile_image);
+
+//         // e.preventDefault();
+//         // setLoading(true);
+//         axios.put('https://interns-new.herokuapp.com/list'+ id, { name:name,mobile:mobile,email:email,designation:designation })
+//         .then(response => console.log(response.data));
+//    };
     const handleUpdate= async(id, name, mobile, designation, email,
         //  profile_image
     )=> {
-        setLoading(false)
-        const formData = new FormData();
-        //         // setHeadingText("Your form got submitted!!");
-        formData.append("id", id);
-        formData.append("name", name);
+        // setLoading(false)
+        // const formData = new FormData();
+        // //         // setHeadingText("Your form got submitted!!");
+        // formData.append("id", id);
+        // formData.append("name", name);
 
-        formData.append("mobile", mobile);
-        formData.append("email", email);
-        formData.append("designation", designation);
+        // formData.append("mobile", mobile);
+        // formData.append("email", email);
+        // formData.append("designation", designation);
         // formData.append("profile_image", profile_image);
         // setHeader("Your Profile Got Updated!!")
         // setLoading(false);
 
-        Axios.put("https://interns-new.herokuapp.com/list/" + id,
-        formData
-        // {name_text:name,mobile_text:mobile,email_text:email,designation_text:designation}
+        axios.put("https://interns-new.herokuapp.com/list/" + id,
+        // formData
+        { name:name,mobile:mobile,email:email,designation:designation }
         )
 
             .then(res => {

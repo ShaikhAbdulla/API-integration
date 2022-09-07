@@ -89,12 +89,12 @@ export default function Get({ navigation }) {
     }
  
     return (<View>
-       <View style={{backgroundColor:'grey',width:'100%',height:'20',flexDirection:'row'}}>
-        <Text style={{fontSize:20,color:'white',fontWeight:'bold',padding:20}}>INTERNS</Text>
-       <TouchableOpacity onPress={()=> navigation.navigate('ADD')} style={{position:'absolute',right:0,padding:1,bottom:4}}>
+       {/* <View style={{backgroundColor:'grey',width:'100%',height:'10%',flexDirection:'row'}}>
+        <Text style={{fontSize:25,color:'white',fontWeight:'bold',padding:20,bottom:-30}}>INTERNS</Text>
+       <TouchableOpacity onPress={()=> navigation.navigate('ADD')} style={{position:'absolute',right:10,padding:1,bottom:-15}}>
             <Text style={{fontSize:50,color:'white'}}>+</Text>
             </TouchableOpacity>
-        </View>
+        </View> */}
     <ScrollView
     //     refreshControl={
     //     <RefreshControl
@@ -206,6 +206,14 @@ export default function Get({ navigation }) {
         </View>
 
     </ScrollView>
+    <View style={{}}>
+    <TouchableOpacity onPress={()=> navigation.navigate('ADD')} style={{height:70,width:70,borderRadius:35,backgroundColor:'black',position:'absolute',left:270,padding:1,bottom:50,alignItems:'center',justifyContent:'center',shadowColor: '#171717',
+    shadowOffset: {width: 5, height: 9},
+    shadowOpacity: 0.10,
+    shadowRadius: 10,}}>
+            <Text style={{fontSize:50,color:'white'}}>+</Text>
+            </TouchableOpacity>
+            </View>
     </View>);
 }
 
