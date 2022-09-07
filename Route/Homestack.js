@@ -4,6 +4,7 @@ import Get from "../Screens/Get";
 import Details from "../Screens/Details";
 import Edit from '../Screens/Edit.js';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, Button } from 'react-native';
+import Add from "../Screens/Add";
 
 
 // const screens ={
@@ -26,13 +27,15 @@ const screens = {
             title: "INTERNS",
             headerStyle: {
                 backgroundColor: 'gray',
+                
             },
             headerTintColor: 'white',
             headerTitleStyle: {
                 fontWeight: 'bold',
             },
+            
 
-            // headerShown:false,
+            headerShown:false,
 
         },
 
@@ -54,6 +57,9 @@ const screens = {
     EDIT: {
         screen: Edit
     },
+    ADD: {
+        screen: Add
+    }
 
 
 }

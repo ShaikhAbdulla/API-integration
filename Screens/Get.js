@@ -87,8 +87,15 @@ export default function Get({ navigation }) {
         </View>
         )
     }
-
-    return (<ScrollView
+ 
+    return (<View>
+       <View style={{backgroundColor:'grey',width:'100%',height:'20',flexDirection:'row'}}>
+        <Text style={{fontSize:20,color:'white',fontWeight:'bold',padding:20}}>INTERNS</Text>
+       <TouchableOpacity onPress={()=> navigation.navigate('ADD')} style={{position:'absolute',right:0,padding:1,bottom:4}}>
+            <Text style={{fontSize:50,color:'white'}}>+</Text>
+            </TouchableOpacity>
+        </View>
+    <ScrollView
     //     refreshControl={
     //     <RefreshControl
     // refreshing={refresh}
@@ -198,7 +205,8 @@ export default function Get({ navigation }) {
 
         </View>
 
-    </ScrollView>);
+    </ScrollView>
+    </View>);
 }
 
 

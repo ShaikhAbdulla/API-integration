@@ -5,7 +5,7 @@ import { useRoute } from '@react-navigation/native';
 
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput,PermissionsAndroid } from 'react-native';
 import { useEffect, useState } from "react";
-import axios from 'axios';
+import Axios from 'axios';
 import loader from '../Assets/loader.gif';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 // import { Picker } from 'react-native-web';
@@ -17,7 +17,7 @@ const Edit = ({ navigation }) => {
 
     const [name, setName] = useState(navigation.getParam('name'));
     const [mobile, setMobile] = useState(navigation.getParam('mobile'));
-    const [desig, setDesig] = useState(navigation.getParam('designation'));
+    const [designation, setDesignation] = useState(navigation.getParam('designation'));
     const [email, setEmail] = useState(navigation.getParam('email'));
     // const [profile_image, setProfile_image] = useState(navigation.getParam('profile_image'))
     const [loading, setLoading] = useState(false);
@@ -62,9 +62,9 @@ const Edit = ({ navigation }) => {
         // }
 
     }
-    function handleUpdate(id, name, mobile, designation, email,
+    const handleUpdate= async(id, name, mobile, designation, email,
         //  profile_image
-    ) {
+    )=> {
         setLoading(false)
         const formData = new FormData();
         //         // setHeadingText("Your form got submitted!!");
@@ -78,7 +78,10 @@ const Edit = ({ navigation }) => {
         // setHeader("Your Profile Got Updated!!")
         // setLoading(false);
 
-        axios.put("https://interns-new.herokuapp.com/list/" + id, formData)
+        Axios.put("https://interns-new.herokuapp.com/list/" + id,
+        formData
+        // {name_text:name,mobile_text:mobile,email_text:email,designation_text:designation}
+        )
 
             .then(res => {
 
@@ -117,13 +120,13 @@ const Edit = ({ navigation }) => {
             />
         </TouchableOpacity>
         <View><Text>{id}</Text></View>
-        <View><TextInput style={styles.tfield} value={name} onChange={(e) => setName(e.target.value)}></TextInput></View>
-        <View><TextInput style={styles.tfield} value={mobile} onChange={(e) => setMobile(e.target.value)}></TextInput></View>
-        <View><TextInput style={styles.tfield} value={desig} onChange={(e) => setDesig(e.target.value)}></TextInput></View>
-        <View><TextInput style={styles.tfield} value={email} onChange={(e) => setEmail(e.target.value)}></TextInput></View>
+        <View><TextInput style={styles.tfield} defaultValue={name} onChangeText={name => setName(name)}></TextInput></View>
+        <View><TextInput style={styles.tfield} defaultValue={mobile} onChangeText={mobile=> setMobile(mobile)}></TextInput></View>
+        <View><TextInput style={styles.tfield} defaultValue={designation} onChangeText={designation => setDesignation(designation)}></TextInput></View>
+        <View><TextInput style={styles.tfield} defaultValue={email} onChangeText={email => setEmail(email)}></TextInput></View>
         <TouchableOpacity style={styles.submit}
             onPress={() => {
-                handleUpdate(id, name, mobile, desig, email,
+                handleUpdate(id, name, mobile, designation, email,
                     // profile_image
                 )
                     ; nav()
