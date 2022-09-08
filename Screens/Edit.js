@@ -3,7 +3,7 @@ import Download from '../Assets/Download.jpg';
 import editing from '../Assets/editing.png'
 import { useRoute } from '@react-navigation/native';
 
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput,PermissionsAndroid } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, PermissionsAndroid, Alert } from 'react-native';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import loader from '../Assets/loader.gif';
@@ -62,26 +62,26 @@ const Edit = ({ navigation }) => {
         // }
 
     }
-    
-//     const handleUpdate = async (
-//         name,mobile,designation,email
-//         ) => {
-//         // const formData = new FormData()
-//         // // setHeadingText("Your form got submitted!!");
-//         // formData.append("name", name);
-//         // formData.append("email", email);
-//         // formData.append("mobile", mobile);
-//         // formData.append("designation", designation);
-//         // // formData.append("profile_image", profile_image);
 
-//         // e.preventDefault();
-//         // setLoading(true);
-//         axios.put('https://interns-new.herokuapp.com/list'+ id, { name:name,mobile:mobile,email:email,designation:designation })
-//         .then(response => console.log(response.data));
-//    };
-    const handleUpdate= async(id, name, mobile, designation, email,
+    //     const handleUpdate = async (
+    //         name,mobile,designation,email
+    //         ) => {
+    //         // const formData = new FormData()
+    //         // // setHeadingText("Your form got submitted!!");
+    //         // formData.append("name", name);
+    //         // formData.append("email", email);
+    //         // formData.append("mobile", mobile);
+    //         // formData.append("designation", designation);
+    //         // // formData.append("profile_image", profile_image);
+
+    //         // e.preventDefault();
+    //         // setLoading(true);
+    //         axios.put('https://interns-new.herokuapp.com/list'+ id, { name:name,mobile:mobile,email:email,designation:designation })
+    //         .then(response => console.log(response.data));
+    //    };
+    const handleUpdate = async (id, name, mobile, designation, email,
         //  profile_image
-    )=> {
+    ) => {
         // setLoading(false)
         // const formData = new FormData();
         // //         // setHeadingText("Your form got submitted!!");
@@ -96,8 +96,8 @@ const Edit = ({ navigation }) => {
         // setLoading(false);
 
         axios.put("https://interns-new.herokuapp.com/list/" + id,
-        // formData
-        { name:name,mobile:mobile,email:email,designation:designation }
+            // formData
+            { name: name, mobile: mobile, email: email, designation: designation }
         )
 
             .then(res => {
@@ -106,7 +106,7 @@ const Edit = ({ navigation }) => {
             })
 
             .catch((error) => console.log(error));
-        console.log(formData)
+        // console.log(formData)
         setLoading(true)
     }
 
@@ -115,6 +115,25 @@ const Edit = ({ navigation }) => {
         return (<View style={styles.loadcont}>
             <Text style={styles.load}>Please Wait Your Profile is Being Updated!</Text>
             <Image style={styles.loader} source={loader} />
+            {Alert.alert(
+                "Your Profile Got Updated Successfully!!",
+                "",
+                [
+                    {
+                        text: "",
+
+                    },
+                    {
+                        text: "OK", onPress: () =>
+                        // internDelete(id)
+                        {
+                            navigation.navigate('Get')
+
+                            // getagain()
+                        }
+                    }
+                ]
+            )}
         </View>
         )
     }
@@ -126,6 +145,7 @@ const Edit = ({ navigation }) => {
     const img1 = image == null ? altImg : image;
 
     return (<View style={styles.container}>
+        <TouchableOpacity onPress={() => navigation.navigate('Get')}><Text>Back</Text></TouchableOpacity>
         <TouchableOpacity >
             <Image
                 // style={styles.img}
@@ -138,7 +158,7 @@ const Edit = ({ navigation }) => {
         </TouchableOpacity>
         <View><Text>{id}</Text></View>
         <View><TextInput style={styles.tfield} defaultValue={name} onChangeText={name => setName(name)}></TextInput></View>
-        <View><TextInput style={styles.tfield} defaultValue={mobile} onChangeText={mobile=> setMobile(mobile)}></TextInput></View>
+        <View><TextInput style={styles.tfield} defaultValue={mobile} onChangeText={mobile => setMobile(mobile)}></TextInput></View>
         <View><TextInput style={styles.tfield} defaultValue={designation} onChangeText={designation => setDesignation(designation)}></TextInput></View>
         <View><TextInput style={styles.tfield} defaultValue={email} onChangeText={email => setEmail(email)}></TextInput></View>
         <TouchableOpacity style={styles.submit}
@@ -146,7 +166,7 @@ const Edit = ({ navigation }) => {
                 handleUpdate(id, name, mobile, designation, email,
                     // profile_image
                 )
-                    ; nav()
+                // ; nav()
                 // ;get()
             }}>
             <Text style={styles.sub}>SUBMIT</Text>

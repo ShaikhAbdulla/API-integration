@@ -42,6 +42,7 @@ const Details = ({ navigation }) => {
       .catch((err) => {
         // setLoading(false);
         console.log(err)
+        // alert(navigation.getParam('name'),'got deleted')
       });
   }
 
@@ -57,6 +58,7 @@ const Details = ({ navigation }) => {
     <View
       style={styles.datacontainer}
     >
+      
       <TouchableOpacity style={styles.edit} onPress={fav} >
         {/* <Image style={styles.iconh} source={heart}/> */}
         <Text style={styles.iconh}>{heart}</Text>

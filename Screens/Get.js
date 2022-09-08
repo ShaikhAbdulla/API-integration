@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-// import { useRoute } from '@react-navigation/native';
+// import { useRoute } from ;
 import Download from '../Assets/Download.jpg';
 import editing from '../Assets/editing.png';
 import loader from '../Assets/loader.gif';
@@ -7,6 +7,7 @@ import { CheckBox, StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import bin from '../Assets/bin.png';
+import {useIsFocused} from '@react-navigation/native';
 // import {Card, CardImage } from 'react-native-material-cards';
 // import NavigationBar from 'react-native-navbar';
 
@@ -35,32 +36,40 @@ export default function Get({ navigation }) {
     //     {window.location.reload(false)};
 
     // }
+    const getPosts=()=>{
+        setLoading(true);
+            // await
+            axios
+                .get("https://interns-new.herokuapp.com/list")
+                .then((res) => {
+                    // return console.log(res.data.result);
+                    const data = res.data.result;
+    
+                    console.log(data)
+                    setData(data);
+                    setLoading(false);
+                })
+                .catch((err)=>console.log(err));
+    }
 
-
+// const isFocused= useIsFocused();
     useEffect(() => {
         // navigation.addListener('focus', async() =>{
-        getInterns()
-
+            getPosts()
+                const interval=setInterval(()=>{
+                    getPosts()
+                   },5000)
+                     
+                     
+                   return()=>clearInterval(interval)
+                
     }, []
-
     );
 
-    function getInterns() {
-        setLoading(true);
-        // await
-        axios
-            .get("https://interns-new.herokuapp.com/list")
-            .then((res) => {
-                // return console.log(res.data.result);
-                const data = res.data.result;
-
-                console.log(data)
-                setData(data);
-                setLoading(false);
-            })
-            .catch((err)=>console.log(err));
+    // function getInterns() {
+       
         // })
-    }
+    // }
     const internDelete = (id) => {
         // e.preventDefault();
         // setLoading(true);
@@ -80,13 +89,13 @@ export default function Get({ navigation }) {
     // }
     //   const route=useRoute();
 
-    if (loading) {
-        return (<View style={styles.loadcont}>
-            <Text style={styles.load}>Please Wait While we load!</Text>
-            <Image style={styles.loader} source={loader} />
-        </View>
-        )
-    }
+    // if (loading) {
+    //     return (<View style={styles.loadcont}>
+    //         <Text style={styles.load}>Please Wait While we load!</Text>
+    //         <Image style={styles.loader} source={loader} />
+    //     </View>
+    //     )
+    // }
  
     return (<View>
        {/* <View style={{backgroundColor:'grey',width:'100%',height:'10%',flexDirection:'row'}}>
@@ -131,7 +140,7 @@ export default function Get({ navigation }) {
               /> */}
                         {/* <Image style={styles.image} source={image}/> */}
 
-                        <TouchableOpacity style={styles.namebut} onPress={() => navigation.navigate('Details', data)}>
+                        <TouchableOpacity style={styles.namebut} onPress={() => navigation.navigate('Details', data,{postintern:{getPosts}})}>
 
                             <Text style={styles.names}>{data.name}</Text>
                             <Text style={styles.desig}>{data.designation}</Text></TouchableOpacity>
@@ -207,10 +216,11 @@ export default function Get({ navigation }) {
 
     </ScrollView>
     <View style={{}}>
-    <TouchableOpacity onPress={()=> navigation.navigate('ADD')} style={{height:70,width:70,borderRadius:35,backgroundColor:'black',position:'absolute',left:270,padding:1,bottom:50,alignItems:'center',justifyContent:'center',shadowColor: '#171717',
-    shadowOffset: {width: 5, height: 9},
-    shadowOpacity: 0.10,
-    shadowRadius: 10,}}>
+    <TouchableOpacity onPress={()=> navigation.navigate('ADD')} style={{height:70,width:70,borderRadius:35,backgroundColor:'black',position:'absolute',left:270,padding:1,bottom:50,alignItems:'center',justifyContent:'center',shadowColor: 'white',
+        // shadowColor: '#470000',
+        shadowOffset: { width: 5, height: 10 },
+        shadowOpacity: 0.8,
+        elevation: 20,}}>
             <Text style={{fontSize:50,color:'white'}}>+</Text>
             </TouchableOpacity>
             </View>
