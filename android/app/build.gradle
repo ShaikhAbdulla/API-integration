@@ -142,7 +142,7 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    defaultConfig {
+    defaultConfig {                                     
         applicationId "com.apiintegration"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -180,6 +180,7 @@ android {
                 }
             }
         }
+        // vectorDrawables.useSupportLibrary=true
     }
 
     if (isNewArchitectureEnabled()) {
@@ -221,6 +222,7 @@ android {
                 }
             }
         }
+
     }
 
     splits {

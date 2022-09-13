@@ -8,9 +8,9 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Permissions
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import loader from '../Assets/loader.gif';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
+import * as ImagePicker from 'expo-image-picker';
 
-const Add = ({navigation}) => {
+const Add = ({ navigation }) => {
   const [name, setName] = useState('');
   const [mobile, setMobile] = useState('');
   const [designation, setDesignation] = useState('');
@@ -18,77 +18,112 @@ const Add = ({navigation}) => {
   const [header, setHeader] = useState('Registration Form')
   const [loading, setLoading] = useState(false);
 
-  const Addintern = async (
-    name, mobile, designation, email
-  ) => {
-    // const formData = new FormData()
-    // // setHeadingText("Your form got submitted!!");
-    // formData.append("name", name);
-    // formData.append("email", email);
-    // formData.append("mobile", mobile);
-    // formData.append("designation", designation);
-    // // formData.append("profile_image", profile_image);
+  const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
+  const [imageUri, setImageUri] = useState('https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701__340.png')
 
-    // e.preventDefault();
-    // setLoading(true);
-    axios.post('https://interns-new.herokuapp.com/list', { name: name, mobile: mobile, email: email, designation: designation })
+
+  useEffect(() => {
+    (async () => {
+
+      const galleryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      setHasGalleryPermission(galleryStatus.status === 'granted')
+
+
+    })();
+
+
+  }, []);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImageUri(result.uri);
+    }
+
+
+
+
+  }
+  
+  const alert = () => {
+    Alert.alert(
+      "Profile Got Successfully Added!!",
+      "",
+      [
+        {
+          text: "",
+
+        },
+        {
+          text: "OK", onPress: () => {
+
+            navigation.navigate('Get');
+
+          }
+        }
+      ]
+    )
+  }
+
+
+
+
+
+
+  const Addintern = async (
+    name, mobile, designation, email,imageUri
+  ) => {
+    
+    axios.post('https://interns-new.herokuapp.com/list', { name: name, mobile: mobile, email: email, designation: designation,profile_image: imageUri })
 
       .then(response => console.log(response.data));
     setLoading(true);
+
     setHeader('Registration successfull')
+
+    setTimeout(() => {
+      alert();
+    }, 10000);
+
 
 
   };
-  // axios.post("https://interns-new.herokuapp.com/list",{'name_text':'name','mobile_text':'mobile','email_text':'email','designation_text':'designation'})
-  //     .then(res => {
-  //         // setLoading(false);
-  //         console.log("posting data", res);
-  //     })
-  //     // setLoading(true)
-  //     .catch((err) => console.log(err));
 
-  // }
- 
+
   if (loading) {
     return (<View style={styles.loadcont}>
       <Text style={styles.load}>Please Wait..Intern is being added!</Text>
       <Image style={styles.loader} source={loader} />
-      {Alert.alert(
-        "Profile Got Successfully Added!!",
-        "",
-        [
-          {
-            text: "",
 
-          },
-          {
-            text: "OK", onPress: () =>
-            // internDelete(id)
-            {
-              // nav()
-              navigation.navigate('Get');
-
-              // getagain()
-            }
-          }
-        ]
-      )}
     </View>
     )
   }
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'grey' }}>
-      <Text style={{ fontSize: 35, bottom: 90, fontWeight: 'bold' }}>{header}</Text>
-      <View ><TextInput style={styles.tfield}
-        onChangeText={name => setName(name)} placeholder='Name'></TextInput></View>
-      <View><TextInput style={styles.tfield} onChangeText={mobile => setMobile(mobile)} placeholder='Contact No'></TextInput></View>
-      <View><TextInput style={styles.tfield} onChangeText={designation => setDesignation(designation)} placeholder='Email ID'></TextInput></View>
-      <View><TextInput style={styles.tfield} onChangeText={email => setEmail(email)} placeholder='Designation'></TextInput></View>
-      <Button style={{ width: 100 }} title='SUBMIT' onPress={() => Addintern(
-        name, mobile, email, designation
-      )
+      <Text style={{ fontSize: 35, bottom: 90, fontWeight: 'bold', marginTop: 60 }}>{header}</Text>
+      <View style={{ bottom: 15 }}><TouchableOpacity onPress={() => { pickImage() }} >{imageUri &&
+        <Image
+          style={{ height: 150, width: 150, bottom: 50 }}
+          source={{ uri: imageUri }} />}</TouchableOpacity></View>
 
-      } />
+      <View style={{ bottom: 40 }}><TextInput style={styles.tfield}
+        onChangeText={name => setName(name)} placeholder='Name'></TextInput>
+        <TextInput style={styles.tfield} onChangeText={mobile => setMobile(mobile)} placeholder='Contact No'></TextInput>
+        <TextInput style={styles.tfield} onChangeText={designation => setDesignation(designation)} placeholder='Email ID'></TextInput>
+        <TextInput style={styles.tfield} onChangeText={email => setEmail(email)} placeholder='Designation'></TextInput>
+        <Button style={{ width: 50 }} title='SUBMIT' onPress={() => Addintern(
+          name, mobile, email, designation,imageUri
+        )
+
+        } /></View>
     </View>
   )
 }
@@ -96,12 +131,12 @@ const styles = StyleSheet.create({
   tfield: {
     backgroundColor: 'white',
     padding: 15,
-    margin: 20,
+    margin: 15,
     height: 60,
     width: 300,
     color: 'black',
-    borderWidth: 3,
-    borderColor: 'white',
+    // borderWidth: 3,
+    // borderColor: 'white',
     borderRadius: 30,
 
   },

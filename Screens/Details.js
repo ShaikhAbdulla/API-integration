@@ -29,6 +29,26 @@ const Details = ({ navigation }) => {
   const fav = () => {
     setHeart('♥');
   }
+  const alert = () => {
+    Alert.alert(
+      navigation.getParam('name') + "  Got Deleted Successfully!!",
+      '',
+      [
+        {
+
+          text: '',
+
+        },
+        {
+          text: "OK", onPress: () => {
+
+            navigation.navigate('Get');
+
+
+          }
+        }]
+    )
+  }
   const internDelete = (id) => {
     // e.preventDefault();
     // setLoading(true);
@@ -38,6 +58,8 @@ const Details = ({ navigation }) => {
       .then(res => {
         // setLoading(true);
         console.log("Deleted", res);
+        alert()
+        // alert(navigation.getParam('name')+' Got Deleted')
       })
       .catch((err) => {
         // setLoading(false);
@@ -58,7 +80,7 @@ const Details = ({ navigation }) => {
     <View
       style={styles.datacontainer}
     >
-      
+
       <TouchableOpacity style={styles.edit} onPress={fav} >
         {/* <Image style={styles.iconh} source={heart}/> */}
         <Text style={styles.iconh}>{heart}</Text>
@@ -73,26 +95,7 @@ const Details = ({ navigation }) => {
 //    {navigation.getParam('profile_image') == null? altImg : navigation.getParam('profile_image') }
    /> */}
         <TouchableOpacity onPress={() => setShow(true)
-          // Alert.alert(
-          //     "View Image in Full",
-          //     "",
-          //     [
-          //       {
-          //         text: "Cancel",
-          //         onPress: () => null,
-          //         style: "cancel"
-          //       },
-          //       { text: "View Image", onPress: () => 
-          //       // internDelete(id)
-          //       {
 
-          //     Pimage();
-          //   // getagain()
-          // }
-          //   }
-          //     ]
-          //   )
-          //  navigation.navigate('EDIT',data)
         }>
           <Image style={styles.img}
             source={{
@@ -118,17 +121,17 @@ const Details = ({ navigation }) => {
                   // ,borderRadius:65
                 }}
               />
-              <View style={{flexDirection:'row', position: 'absolute', left: 8, top: 5,}}>
-              <TouchableOpacity  onPress={() => {
-                setShow(false)
-              }}><Text style={{ fontSize: 40, color: 'white', transform: [{ rotate: '180deg' }] }}>➔</Text></TouchableOpacity>
-              <Text style={{ fontSize: 25, color: 'white',top:5,  left: 30 }}>{navigation.getParam('name')}</Text>
-              
+              <View style={{ flexDirection: 'row', position: 'absolute', left: 8, top: 5, }}>
+                <TouchableOpacity onPress={() => {
+                  setShow(false)
+                }}><Text style={{ fontSize: 40, color: 'white', transform: [{ rotate: '180deg' }] }}>➔</Text></TouchableOpacity>
+                <Text style={{ fontSize: 25, color: 'white', top: 5, left: 30 }}>{navigation.getParam('name')}</Text>
+
               </View>
-              <View style={{left:153,bottom:483}}>
-              <TouchableOpacity >
-              <Image source={imgedit} style={{height:40,width:40,}}/>
-              </TouchableOpacity>
+              <View style={{ left: 153, bottom: 483 }}>
+                <TouchableOpacity >
+                  <Image source={imgedit} style={{ height: 40, width: 40, }} />
+                </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -160,7 +163,7 @@ const Details = ({ navigation }) => {
               // internDelete(id)
               {
                 internDelete(id);
-                nav();
+                // nav();
                 // getagain()
               }
             }

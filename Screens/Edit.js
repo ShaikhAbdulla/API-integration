@@ -48,19 +48,26 @@ const Edit = ({ navigation }) => {
     //     })
     // }
 
+    const alert = () => {
+        Alert.alert(
+            "Your Profile Got Updated Successfully!!",
+            "",
+            [
+                {
+                    text: "",
 
+                },
+                {
+                    text: "OK", onPress: () =>
+                    // internDelete(id)
+                    {
+                        navigation.navigate('Get')
 
-
-    const nav = () => {
-
-        navigation.navigate('Get')
-        // componentWillUnmount
-        // {
-        //     alert('im pressed')
-        //     const {params}=this.props.navigation.state;
-        //     params.callGet();
-        // }
-
+                        // getagain()
+                    }
+                }
+            ]
+        )
     }
 
     //     const handleUpdate = async (
@@ -108,32 +115,20 @@ const Edit = ({ navigation }) => {
             .catch((error) => console.log(error));
         // console.log(formData)
         setLoading(true)
+        setTimeout(() => {
+            alert();
+        }, 10000);
+
+
     }
 
 
     if (loading) {
         return (<View style={styles.loadcont}>
             <Text style={styles.load}>Please Wait Your Profile is Being Updated!</Text>
+
             <Image style={styles.loader} source={loader} />
-            {Alert.alert(
-                "Your Profile Got Updated Successfully!!",
-                "",
-                [
-                    {
-                        text: "",
 
-                    },
-                    {
-                        text: "OK", onPress: () =>
-                        // internDelete(id)
-                        {
-                            navigation.navigate('Get')
-
-                            // getagain()
-                        }
-                    }
-                ]
-            )}
         </View>
         )
     }

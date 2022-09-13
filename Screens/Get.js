@@ -7,7 +7,7 @@ import { CheckBox, StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import bin from '../Assets/bin.png';
-import {useIsFocused} from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 // import {Card, CardImage } from 'react-native-material-cards';
 // import NavigationBar from 'react-native-navbar';
 
@@ -17,72 +17,69 @@ export default function Get({ navigation }) {
     const [isSelected, setSelection] = useState(false);
     // const[refresh,setRefresh]=useState(false)
 
-    //   const detail = () => {
-    //     navigation.navigate('Info')
-
-
-    //     console.log('i got clicked!!')
-    //   }
-
-    // const getInterns= ()=>{
-
-
-
-    // const pullme=()=>{
-    //     setRefresh(true)
-    //     setTimeout(()=>{
-    // setRefresh(false)
-    //     },10000)
-    //     {window.location.reload(false)};
-
-    // }
-    const getPosts=()=>{
+    const getPosts = () => {
         setLoading(true);
-            // await
-            axios
-                .get("https://interns-new.herokuapp.com/list")
-                .then((res) => {
-                    // return console.log(res.data.result);
-                    const data = res.data.result;
-    
-                    console.log(data)
-                    setData(data);
-                    setLoading(false);
-                })
-                .catch((err)=>console.log(err));
+
+        axios.get("https://interns-new.herokuapp.com/list")
+            .then((res) => {
+
+                const data = res.data.result;
+
+                console.log(data)
+                setData(data);
+                setLoading(false);
+            })
+            .catch((err) => console.log(err));
     }
 
-// const isFocused= useIsFocused();
     useEffect(() => {
-        // navigation.addListener('focus', async() =>{
+
+
+        const interval = setInterval(() => {
             getPosts()
-                const interval=setInterval(()=>{
-                    getPosts()
-                   },5000)
-                     
-                     
-                   return()=>clearInterval(interval)
-                
+        }, 5000)
+
+
+        return () => clearInterval(interval)
+
     }, []
     );
 
-    // function getInterns() {
-       
-        // })
-    // }
+    const alert = () => {
+        Alert.alert(
+            "  Got Deleted Successfully!!",
+            '',
+            [
+                {
+
+                    text: '',
+
+                },
+                {
+                    text: "OK", onPress: () => {
+
+                        navigation.navigate('Get');
+
+
+                    }
+                }]
+        )
+    }
     const internDelete = (id) => {
-        // e.preventDefault();
-        // setLoading(true);
+        setLoading(true);
+
         axios.delete("https://interns-new.herokuapp.com/list/" + id
-            // , formData
+
         )
             .then(res => {
-                // setLoading(true);
+
                 console.log("Deleted", res);
+                alert()
             })
             .catch((err) => {
-                // setLoading(false);
+
                 console.log(err)
+
             });
     }
 
@@ -96,134 +93,136 @@ export default function Get({ navigation }) {
     //     </View>
     //     )
     // }
- 
+
     return (<View>
-       {/* <View style={{backgroundColor:'grey',width:'100%',height:'10%',flexDirection:'row'}}>
+        {/* <View style={{backgroundColor:'grey',width:'100%',height:'10%',flexDirection:'row'}}>
         <Text style={{fontSize:25,color:'white',fontWeight:'bold',padding:20,bottom:-30}}>INTERNS</Text>
        <TouchableOpacity onPress={()=> navigation.navigate('ADD')} style={{position:'absolute',right:10,padding:1,bottom:-15}}>
             <Text style={{fontSize:50,color:'white'}}>+</Text>
             </TouchableOpacity>
         </View> */}
-    <ScrollView
-    //     refreshControl={
-    //     <RefreshControl
-    // refreshing={refresh}
-    // onRefresh={()=>pullme()}
-    //     />
-    //     }
-    >
-        <View style={styles.container1}>
+        <ScrollView
+        //     refreshControl={
+        //     <RefreshControl
+        // refreshing={refresh}
+        // onRefresh={()=>pullme()}
+        //     />
+        //     }
+        >
+            <View style={styles.container1}>
 
-            <View
-                style={styles.container0}
-            >
-                {data.map((data) => {
-                    {/* {console.log(data)}   */ }
-
-
-
-                    {/* const imgUrl = `https://interns-new.herokuapp.com${data.profile_image}`;  */ }
-                    const altImg = "https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701__340.png";
-                    const img = data.profile_image == null ? altImg : data.profile_image;
+                <View
+                    style={styles.container0}
+                >
+                    {data.map((data) => {
+                        {/* {console.log(data)}   */ }
 
 
 
-                    {/* <View  style={styles.maincontainer}  > */ }
-                    console.log('data', data)
-                    return <View style={styles.namecontainer}
-
-                        key={data.id}>
+                        {/* const imgUrl = `https://interns-new.herokuapp.com${data.profile_image}`;  */ }
+                        const altImg = "https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701__340.png";
+                        const img = data.profile_image == null ? altImg : data.profile_image;
 
 
-                        {/* <Image src={img} 
+
+                        {/* <View  style={styles.maincontainer}  > */ }
+                        console.log('data', data)
+                        return <View style={styles.namecontainer}
+
+                            key={data.id}>
+
+
+                            {/* <Image src={img} 
               onError={(e) => e.target.src = altImg}
               /> */}
-                        {/* <Image style={styles.image} source={image}/> */}
+                            {/* <Image style={styles.image} source={image}/> */}
 
-                        <TouchableOpacity style={styles.namebut} onPress={() => navigation.navigate('Details', data,{postintern:{getPosts}})}>
+                            <TouchableOpacity style={styles.namebut} onPress={() => navigation.navigate('Details', data, { postintern: { getPosts } })}>
 
-                            <Text style={styles.names}>{data.name}</Text>
-                            <Text style={styles.desig}>{data.designation}</Text></TouchableOpacity>
-                        {/* <Text>{data.mobile}</Text>
+                                <Text style={styles.names}>{data.name}</Text>
+                                <Text style={styles.desig}>{data.designation}</Text></TouchableOpacity>
+                            {/* <Text>{data.mobile}</Text>
       <Text>{data.designation}</Text>
       <Text>{data.email}</Text> */}
 
-                        <StatusBar style="auto" />
-                        {/* <Card> */}
-                        <View style={styles.imgcontainer}>
-                            <Image style={styles.image}
-                                source={{
-                                    uri: img,
-                                    // method: 'GET',
-                                    // headers: {
-                                    //     Pragma: 'no-cache'
-                                    // },
-                                    // body: 'Your Body goes here'
-                                }}
-                            // style={{ width: 80, height: 80,borderRadius:40}}
-                            />
-                            {/* <Image style={styles.image}  */}
-                            {/* // source={{uri:`${img}`}}  */}
-                            {/* /> */}
-                            {/* <CardImage  source={{uri:data.profile_image}} title='image'/> */}
-                        </View>
-                        {/* </Card> */}
-                        <TouchableOpacity style={styles.edit} onPress={() => navigation.navigate('EDIT', data
-                            // ,{getAgain:getAgain}
-                        )}>
-                            <Image style={styles.icon} source={editing} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.delete}
-                            onPress={() => Alert.alert(
-                                "Are you sure you Want to Delete This?",
-                                "The Intern will be deleted permanently",
-                                [
-                                    {
-                                        text: "Cancel",
-                                        onPress: () => null,
-                                        style: "cancel"
-                                    },
-                                    {
-                                        text: "YES", onPress: () =>
-                                        // internDelete(id)
+                            <StatusBar style="auto" />
+                            {/* <Card> */}
+                            <View style={styles.imgcontainer}>
+                                <Image style={styles.image}
+                                    source={{
+                                        uri: img,
+                                        // method: 'GET',
+                                        // headers: {
+                                        //     Pragma: 'no-cache'
+                                        // },
+                                        // body: 'Your Body goes here'
+                                    }}
+                                // style={{ width: 80, height: 80,borderRadius:40}}
+                                />
+                                {/* <Image style={styles.image}  */}
+                                {/* // source={{uri:`${img}`}}  */}
+                                {/* /> */}
+                                {/* <CardImage  source={{uri:data.profile_image}} title='image'/> */}
+                            </View>
+                            {/* </Card> */}
+                            <TouchableOpacity style={styles.edit} onPress={() => navigation.navigate('EDIT', data
+                                // ,{getAgain:getAgain}
+                            )}>
+                                <Image style={styles.icon} source={editing} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.delete}
+                                onPress={() => Alert.alert(
+                                    "Are you sure you Want to Delete This?",
+                                    "The Intern will be deleted permanently",
+                                    [
                                         {
-                                            internDelete(data.id)
+                                            text: "Cancel",
+                                            onPress: () => null,
+                                            style: "cancel"
+                                        },
+                                        {
+                                            text: "YES", onPress: () =>
+                                            // internDelete(id)
+                                            {
+                                                internDelete(data.id)
 
-                                            // getagain()
+                                                // getagain()
+                                            }
                                         }
-                                    }
-                                ]
-                            )
-                                //  navigation.navigate('EDIT',data)
-                            }
-                        ><Image style={styles.icon} source={bin} /></TouchableOpacity>
-                        {/* <CheckBox
+                                    ]
+                                )
+                                    //  navigation.navigate('EDIT',data)
+                                }
+                            ><Image style={styles.icon} source={bin} /></TouchableOpacity>
+                            {/* <CheckBox
           value={isSelected}
           onValueChange={setSelection}
           style={styles.checkbox}
         /> */}
-                        {/* <Text>Is CheckBox selected: {isSelected ? "👍" : "👎"}</Text> */}
-                    </View>
+                            {/* <Text>Is CheckBox selected: {isSelected ? "👍" : "👎"}</Text> */}
+                        </View>
 
 
-                    {/* </View> */ }
-                })}
+                        {/* </View> */ }
+                    })}
+
+                </View>
+
 
             </View>
 
-
-        </View>
-
-    </ScrollView>
-    <View style={{}}>
-    <TouchableOpacity onPress={()=> navigation.navigate('ADD')} style={{height:70,width:70,borderRadius:35,backgroundColor:'black',position:'absolute',left:270,padding:1,bottom:50,alignItems:'center',justifyContent:'center',shadowColor: 'white',
-        // shadowColor: '#470000',
-        shadowOffset: { width: 5, height: 10 },
-        shadowOpacity: 0.8,
-        elevation: 20,}}>
-            <Text style={{fontSize:50,color:'white'}}>+</Text>
+        </ScrollView>
+        <View style={{}}>
+            <TouchableOpacity onPress={() => navigation.navigate('ADD')} style={{
+                height: 70, width: 70, borderRadius: 35, backgroundColor: 'black', position: 'absolute', left: 270, padding: 1, bottom: 50, alignItems: 'center', justifyContent: 'center', shadowColor: 'white',
+                // shadowColor: '#470000',
+                shadowOffset: { width: 5, height: 10 },
+                shadowOpacity: 0.8,
+                elevation: 20,
+            }}>
+                <Text style={{ fontSize: 50, color: 'white' }}>+</Text>
             </TouchableOpacity>
-            </View>
+        </View>
     </View>);
 }
 
