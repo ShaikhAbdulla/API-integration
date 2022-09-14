@@ -287,24 +287,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
 
   },
-  // ht:{
-  //   position:'absolute',
-  //     top:3,
-  //     right:7,
-  //   height:50,
-  //   width:50,
-  // }
-  // inner:{
-  //     shadowOffset: {width: 10, height: 10},
-  //     shadowOpacity: 1,
-  //     shadowColor: "grey",
-  //     shadowRadius: 10,
-  //     borderRadius: 20,
-  //     backgroundColor: 'white',
-  //     width: 100,
-  //     height: 100,
-  //     // ...include most of View/Layout styles
-  //   }
+  
 
 
 })

@@ -94,7 +94,7 @@ export default function Get({ navigation }) {
     //     )
     // }
 
-    return (<View>
+    return (<View style={{width:'100%',flex:1}}>
         {/* <View style={{backgroundColor:'grey',width:'100%',height:'10%',flexDirection:'row'}}>
         <Text style={{fontSize:25,color:'white',fontWeight:'bold',padding:20,bottom:-30}}>INTERNS</Text>
        <TouchableOpacity onPress={()=> navigation.navigate('ADD')} style={{position:'absolute',right:10,padding:1,bottom:-15}}>
@@ -126,7 +126,7 @@ export default function Get({ navigation }) {
 
 
                         {/* <View  style={styles.maincontainer}  > */ }
-                        console.log('data', data)
+                        // console.log('data', data)
                         return <View style={styles.namecontainer}
 
                             key={data.id}>
@@ -151,22 +151,13 @@ export default function Get({ navigation }) {
                                 <Image style={styles.image}
                                     source={{
                                         uri: img,
-                                        // method: 'GET',
-                                        // headers: {
-                                        //     Pragma: 'no-cache'
-                                        // },
-                                        // body: 'Your Body goes here'
-                                    }}
-                                // style={{ width: 80, height: 80,borderRadius:40}}
-                                />
-                                {/* <Image style={styles.image}  */}
-                                {/* // source={{uri:`${img}`}}  */}
-                                {/* /> */}
-                                {/* <CardImage  source={{uri:data.profile_image}} title='image'/> */}
+                                        
+                                    }} />
+                           
                             </View>
-                            {/* </Card> */}
+                        
                             <TouchableOpacity style={styles.edit} onPress={() => navigation.navigate('EDIT', data
-                                // ,{getAgain:getAgain}
+                               
                             )}>
                                 <Image style={styles.icon} source={editing} />
                             </TouchableOpacity>
@@ -212,15 +203,16 @@ export default function Get({ navigation }) {
             </View>
 
         </ScrollView>
-        <View style={{}}>
+        <View style={{maxWidth:'100%'}}>
             <TouchableOpacity onPress={() => navigation.navigate('ADD')} style={{
-                height: 70, width: 70, borderRadius: 35, backgroundColor: 'black', position: 'absolute', left: 270, padding: 1, bottom: 50, alignItems: 'center', justifyContent: 'center', shadowColor: 'white',
+                height: 80, width: 80, borderRadius: 40, backgroundColor: 'black',position:'sticky', position: 'absolute', left: 265, padding: 1, bottom: 50, alignItems: 'center', justifyContent: 'center', shadowColor: 'white',
                 // shadowColor: '#470000',
+                maxWidth:'100%',
                 shadowOffset: { width: 5, height: 10 },
                 shadowOpacity: 0.8,
                 elevation: 20,
             }}>
-                <Text style={{ fontSize: 50, color: 'white' }}>+</Text>
+                <Text style={{ fontSize: 55, color: 'white' }}>+</Text>
             </TouchableOpacity>
         </View>
     </View>);
@@ -229,7 +221,7 @@ export default function Get({ navigation }) {
 
 const styles = StyleSheet.create({
     container1: {
-
+maxWidth:'100%',
         alignItems: 'center',
         // alignContent:'center',
 
@@ -239,16 +231,19 @@ const styles = StyleSheet.create({
 
     },
     container0: {
+        maxWidth:'100%',
         alignItems: 'center',
     },
     namecontainer: {
+        
         // borderWidth: 1,
         // alignItems: 'center',
+      
         margin: 30,
         padding: 5,
         borderRadius: 20,
         height: 80,
-        width: 290,
+        maxWidth: '80%',
         backgroundColor: 'white',
         flexDirection: 'row',
         shadowColor: 'black',
@@ -257,8 +252,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.8,
         elevation: 20,
         // shadowRadius:20,
-
-
     },
 
     names: {

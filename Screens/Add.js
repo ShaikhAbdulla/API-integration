@@ -79,10 +79,13 @@ const Add = ({ navigation }) => {
 
 
   const Addintern = async (
-    name, mobile, designation, email,imageUri
+    name, mobile, designation, email
+    // ,imageUri
   ) => {
     
-    axios.post('https://interns-new.herokuapp.com/list', { name: name, mobile: mobile, email: email, designation: designation,profile_image: imageUri })
+    axios.post('https://interns-new.herokuapp.com/list', { name: name, mobile: mobile, email: email, designation: designation
+    // ,profile_image: imageUri
+   })
 
       .then(response => console.log(response.data));
     setLoading(true);
@@ -107,23 +110,25 @@ const Add = ({ navigation }) => {
     )
   }
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'grey' }}>
-      <Text style={{ fontSize: 35, bottom: 90, fontWeight: 'bold', marginTop: 60 }}>{header}</Text>
-      <View style={{ bottom: 15 }}><TouchableOpacity onPress={() => { pickImage() }} >{imageUri &&
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'grey',alignContent:'center' }}>
+      {/* <Text style={{ fontSize: 35, bottom: 90, fontWeight: 'bold', marginTop: 60 }}>{header}</Text> */}
+      <View style={{alignItems: 'center', justifyContent: 'center',top:50}}>
+      <View style={{ bottom: 15 }}><TouchableOpacity onPress={() => {pickImage() }} >{imageUri &&
         <Image
           style={{ height: 150, width: 150, bottom: 50 }}
           source={{ uri: imageUri }} />}</TouchableOpacity></View>
 
-      <View style={{ bottom: 40 }}><TextInput style={styles.tfield}
+      <View style={{ bottom: 40 ,alignItems:'center',justifyContent:'center'}}><TextInput style={styles.tfield}
         onChangeText={name => setName(name)} placeholder='Name'></TextInput>
         <TextInput style={styles.tfield} onChangeText={mobile => setMobile(mobile)} placeholder='Contact No'></TextInput>
         <TextInput style={styles.tfield} onChangeText={designation => setDesignation(designation)} placeholder='Email ID'></TextInput>
         <TextInput style={styles.tfield} onChangeText={email => setEmail(email)} placeholder='Designation'></TextInput>
+        <View style={{width:100,alignContent:'center' }}>
         <Button style={{ width: 50 }} title='SUBMIT' onPress={() => Addintern(
-          name, mobile, email, designation,imageUri
+          name, mobile, email, designation
         )
-
-        } /></View>
+        } /></View><Text>{imageUri}</Text></View>
+        </View>
     </View>
   )
 }
@@ -137,16 +142,14 @@ const styles = StyleSheet.create({
     color: 'black',
     // borderWidth: 3,
     // borderColor: 'white',
-    borderRadius: 30,
+    borderRadius: 5,
 
   },
   load: {
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
-
-
-  },
+},
   loadcont: {
 
     marginTop: 250,
