@@ -22,7 +22,7 @@ const Edit = ({ navigation }) => {
     // const [profile_image, setProfile_image] = useState(navigation.getParam('profile_image'))
     const [loading, setLoading] = useState(false);
     const id = navigation.getParam('id');
-   
+
 
     const alert = () => {
         Alert.alert(
@@ -46,11 +46,11 @@ const Edit = ({ navigation }) => {
         )
     }
 
-   
+
     const handleUpdate = async (id, name, mobile, designation, email,
         //  profile_image
     ) => {
-        
+
 
         axios.put("https://interns-new.herokuapp.com/list/" + id,
             // formData
@@ -63,7 +63,7 @@ const Edit = ({ navigation }) => {
             })
 
             .catch((error) => console.log(error));
-       
+
         setLoading(true)
         setTimeout(() => {
             alert();

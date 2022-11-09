@@ -3,11 +3,14 @@ import { StatusBar } from 'expo-status-bar';
 import Download from '../Assets/Download.jpg';
 import editing from '../Assets/editing.png';
 import loader from '../Assets/loader.gif';
-import { CheckBox, StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { CheckBox, StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Alert, Modal } from 'react-native';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import bin from '../Assets/bin.png';
 import { useIsFocused } from '@react-navigation/native';
+import NetInfo from '@react-native-community/netinfo';
+import nowifi from '../Assets/nowifi.png'
+// import Toast from 'react-native-toast-message'  
 // import {Card, CardImage } from 'react-native-material-cards';
 // import NavigationBar from 'react-native-navbar';
 
@@ -15,6 +18,8 @@ export default function Get({ navigation }) {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isSelected, setSelection] = useState(false);
+    const [netInfo, setNetInfo] = useState('')
+    const [error, setError] = useState('')
     // const[refresh,setRefresh]=useState(false)
 
     const getPosts = () => {
@@ -31,16 +36,43 @@ export default function Get({ navigation }) {
             })
             .catch((err) => console.log(err));
     }
-
+// console.log(nowifi);
     useEffect(() => {
+        // useEffect(() => {
+
+        // return () => {
+        //   unsubscribe()
+        // }
+        //   }, [])
 
 
         const interval = setInterval(() => {
             getPosts()
-        }, 5000)
+        }, 5000)  
+        const unsubscribe = NetInfo.addEventListener((state) => {
+            setNetInfo(`connectionType:${state.type}      
+            isConnected?${state.isConnected}`)
+            if (!state.isConnected) {
+                setError(<View style={{flexDirection:'row',alignItems:'center'}}><Image style={{height:50,width:50}} source={nowifi}/><Text style={{ color: 'red', fontSize: 15 }}>Connection Lost</Text></View>)
+            } else {
+                setError()
+            }
 
 
-        return () => clearInterval(interval)
+            // Toast.show({
+            //   type: 'error',
+            //   text1: `You're offline. Please check your internet connection`,
+            //   position: 'top',
+            // autoHide: false 
+            // })
+
+        })
+
+
+
+        return () => unsubscribe()
+        // clearInterval(interval)
+
 
     }, []
     );
@@ -52,7 +84,7 @@ export default function Get({ navigation }) {
             [
                 {
 
-                    text: '',
+                    text: '', 
 
                 },
                 {
@@ -94,7 +126,8 @@ export default function Get({ navigation }) {
     //     )
     // }
 
-    return (<View style={{width:'100%',flex:1}}>
+    return (<View style={{ width: '100%', flex: 1 }}>
+        <View style={{alignItems:'center',backgroundColor:'white'}}><Text>{error}</Text></View>
         {/* <View style={{backgroundColor:'grey',width:'100%',height:'10%',flexDirection:'row'}}>
         <Text style={{fontSize:25,color:'white',fontWeight:'bold',padding:20,bottom:-30}}>INTERNS</Text>
        <TouchableOpacity onPress={()=> navigation.navigate('ADD')} style={{position:'absolute',right:10,padding:1,bottom:-15}}>
@@ -151,13 +184,13 @@ export default function Get({ navigation }) {
                                 <Image style={styles.image}
                                     source={{
                                         uri: img,
-                                        
+
                                     }} />
-                           
+
                             </View>
-                        
+
                             <TouchableOpacity style={styles.edit} onPress={() => navigation.navigate('EDIT', data
-                               
+
                             )}>
                                 <Image style={styles.icon} source={editing} />
                             </TouchableOpacity>
@@ -203,11 +236,11 @@ export default function Get({ navigation }) {
             </View>
 
         </ScrollView>
-        <View style={{maxWidth:'100%'}}>
+        <View style={{ maxWidth: '100%' }}>
             <TouchableOpacity onPress={() => navigation.navigate('ADD')} style={{
-                height: 80, width: 80, borderRadius: 40, backgroundColor: 'black',position:'sticky', position: 'absolute', left: 265, padding: 1, bottom: 50, alignItems: 'center', justifyContent: 'center', shadowColor: 'white',
+                height: 80, width: 80, borderRadius: 40, backgroundColor: 'black', position: 'sticky', position: 'absolute', left: 265, padding: 1, bottom: 50, alignItems: 'center', justifyContent: 'center', shadowColor: 'white',
                 // shadowColor: '#470000',
-                maxWidth:'100%',
+                maxWidth: '100%',
                 shadowOffset: { width: 5, height: 10 },
                 shadowOpacity: 0.8,
                 elevation: 20,
@@ -221,7 +254,7 @@ export default function Get({ navigation }) {
 
 const styles = StyleSheet.create({
     container1: {
-maxWidth:'100%',
+        maxWidth: '100%',
         alignItems: 'center',
         // alignContent:'center',
 
@@ -231,14 +264,14 @@ maxWidth:'100%',
 
     },
     container0: {
-        maxWidth:'100%',
+        maxWidth: '100%',
         alignItems: 'center',
     },
     namecontainer: {
-        
+
         // borderWidth: 1,
         // alignItems: 'center',
-      
+
         margin: 30,
         padding: 5,
         borderRadius: 20,

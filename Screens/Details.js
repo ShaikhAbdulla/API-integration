@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Download from '../Assets/Download.jpg';
 import editing from '../Assets/editing.png';
 import bin from '../Assets/bin.png';
-import imgedit from '../Assets/imgedit.png'
+import imgedit from '../Assets/imgedit.png';
 // import React,  from "react";
 // import { Shadow } from 'react-native-neomorph-shadows';
 // import { useRoute } from '@react-navigation/native';
@@ -20,18 +20,17 @@ import { Button } from 'react-native-web';
 const Details = ({ navigation }) => {
   const image = navigation.getParam('profile_image');
   const altImg = "https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701__340.png";
-
   const img1 = image == null ? altImg : image;
   const [heart, setHeart] = useState('🖤')
   const [show, setShow] = useState(false)
-
+ 
   // console.log('data',data)
   const fav = () => {
     setHeart('♥');
   }
   const alert = () => {
     Alert.alert(
-      navigation.getParam('name') + "  Got Deleted Successfully!!",
+      navigation.getParam('name') + "Got Deleted Successfully!!",
       '',
       [
         {
@@ -67,7 +66,6 @@ const Details = ({ navigation }) => {
         // alert(navigation.getParam('name'),'got deleted')
       });
   }
-
   const id = navigation.getParam('id');
   const nav = () => {
     navigation.navigate('Get');
@@ -81,26 +79,21 @@ const Details = ({ navigation }) => {
       style={styles.datacontainer}
     >
 
-      <TouchableOpacity style={styles.edit} onPress={fav} >
+      <TouchableOpacity style={styles.edit} onPress={fav}>
         {/* <Image style={styles.iconh} source={heart}/> */}
         <Text style={styles.iconh}>{heart}</Text>
       </TouchableOpacity>
       {/* <View style={styles.imgcontainer}> */}
-
-
       {/* </View> */}
       {/* <Text style={styles.data}>{navigation.getParam('profile_image')== null? altImg : navigation.getParam('profile_image')}</Text> */}
       <View style={styles.imgcont}>
         {/* <Image style={styles.img} source={Download}
 //    {navigation.getParam('profile_image') == null? altImg : navigation.getParam('profile_image') }
    /> */}
-        <TouchableOpacity onPress={() => setShow(true)
-
-        }>
+        <TouchableOpacity onPress={() => setShow(true)}>
           <Image style={styles.img}
             source={{
               uri: img1,
-
             }}
           // style={{ width: 129, height: 129,borderRadius:65}}
           />
@@ -119,7 +112,7 @@ const Details = ({ navigation }) => {
                 style={{
                   width: 373, height: 350
                   // ,borderRadius:65
-                }}
+                }} 
               />
               <View style={{ flexDirection: 'row', position: 'absolute', left: 8, top: 5, }}>
                 <TouchableOpacity onPress={() => {
@@ -129,7 +122,7 @@ const Details = ({ navigation }) => {
 
               </View>
               <View style={{ left: 153, bottom: 483 }}>
-                <TouchableOpacity >
+                <TouchableOpacity>
                   <Image source={imgedit} style={{ height: 40, width: 40, }} />
                 </TouchableOpacity>
               </View>
@@ -287,10 +280,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
 
   },
-  
+
 
 
 })
 
-export default Details;
+export default Details;    
 
