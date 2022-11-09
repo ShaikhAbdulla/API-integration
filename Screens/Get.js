@@ -30,7 +30,7 @@ export default function Get({ navigation }) {
 
                 const data = res.data.result;
 
-                console.log(data)
+                // console.log(data) 
                 setData(data);
                 setLoading(false);
             })
@@ -53,8 +53,21 @@ export default function Get({ navigation }) {
             setNetInfo(`connectionType:${state.type}      
             isConnected?${state.isConnected}`)
             if (!state.isConnected) {
-                setError(<View style={{flexDirection:'row',alignItems:'center'}}><Image style={{height:50,width:50}} source={nowifi}/><Text style={{ color: 'red', fontSize: 15 }}>Connection Lost</Text></View>)
-            } else {
+                setError(alert('Connection Lost'),
+                 <View style={{flexDirection:'row',alignItems:'center'}}>
+                
+                 <Image style={{height:50,width:50}} source={nowifi}/><Text style={{ color: 'red', fontSize: 15 }}>Connection Lost</Text>
+                </View>
+                )
+            } if (!state.isConnected) {
+                setError(
+                 <View style={{flexDirection:'row',alignItems:'center'}}>
+                
+                 {/* <Image style={{height:50,width:50}} source={nowifi}/> */}
+                 <Text style={{ color: 'red', fontSize: 15 }}>Connection Lost</Text>
+                </View>
+                )
+            }  else {
                 setError()
             }
 
@@ -77,7 +90,7 @@ export default function Get({ navigation }) {
     }, []
     );
 
-    const alert = () => {
+    const alertt = () => {
         Alert.alert(
             "  Got Deleted Successfully!!",
             '',
@@ -106,7 +119,7 @@ export default function Get({ navigation }) {
             .then(res => {
 
                 console.log("Deleted", res);
-                alert()
+                alertt()
             })
             .catch((err) => {
 
@@ -234,6 +247,7 @@ export default function Get({ navigation }) {
 
 
             </View>
+            <View style={{height:110}}></View>
 
         </ScrollView>
         <View style={{ maxWidth: '100%' }}>

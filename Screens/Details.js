@@ -30,7 +30,7 @@ const Details = ({ navigation }) => {
   }
   const alert = () => {
     Alert.alert(
-      navigation.getParam('name') + "Got Deleted Successfully!!",
+      navigation.getParam('name') , "Got Deleted Successfully!!",
       '',
       [
         {
