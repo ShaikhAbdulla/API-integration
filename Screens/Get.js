@@ -52,14 +52,15 @@ export default function Get({ navigation }) {
         const unsubscribe = NetInfo.addEventListener((state) => {
             setNetInfo(`connectionType:${state.type}      
             isConnected?${state.isConnected}`)
-            if (!state.isConnected) {
+            if (state.isConnected==false) {
                 setError(alert('Connection Lost'),
                  <View style={{flexDirection:'row',alignItems:'center'}}>
                 
                  <Image style={{height:50,width:50}} source={nowifi}/><Text style={{ color: 'red', fontSize: 15 }}>Connection Lost</Text>
                 </View>
                 )
-            } if (!state.isConnected) {
+            }
+             if (state.isConnected==false) {
                 setError(
                  <View style={{flexDirection:'row',alignItems:'center'}}>
                 
@@ -67,8 +68,18 @@ export default function Get({ navigation }) {
                  <Text style={{ color: 'red', fontSize: 15 }}>Connection Lost</Text>
                 </View>
                 )
-            }  else {
-                setError()
+            } 
+             if(state.isConnected==true) { 
+                
+                setError(<View style={{flexDirection:'row',alignItems:'center'}}>
+                <Text style={{color:'green'}}>Back online</Text></View>)
+                const timeout = setTimeout(() => {
+                  
+                    setError()
+                    
+                }, 2000);
+                
+                // setError()
             }
 
 
