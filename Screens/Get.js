@@ -52,27 +52,40 @@ export default function Get({ navigation }) {
         const unsubscribe = NetInfo.addEventListener((state) => {
             setNetInfo(`connectionType:${state.type}      
             isConnected?${state.isConnected}`)
-            if (state.isConnected==false) {
-                setError(alert('Connection Lost'),
-                 <View style={{flexDirection:'row',alignItems:'center'}}>
+            // if (state.isConnected==false) {
+            //     setError(alert('Connection Lost'),
+            //      <View style={{flexDirection:'row',alignItems:'center'}}>
                 
-                 <Image style={{height:50,width:50}} source={nowifi}/><Text style={{ color: 'red', fontSize: 15 }}>Connection Lost</Text>
-                </View>
-                )
-            }
+            //      <Image style={{height:50,width:50}} source={nowifi}/><Text style={{ color: 'red', fontSize: 15 }}>Connection Lost</Text>
+            //     </View>
+            //     )
+            // }
              if (state.isConnected==false) {
+                // const timeout1 = setTimeout(() => {
+                  
+                    
+                    const time= setTimeout(()=> {
+                        setError(<View style={{flexDirection:'row',alignItems:'center'}}>
+                        <Image style={{height:40,width:40}} source={nowifi}/>
+                        <Text style={{ color: 'red', fontSize: 15 }}>Connection Lost</Text></View>)
+
+                    },3000);
+              
                 setError(
                  <View style={{flexDirection:'row',alignItems:'center'}}>
                 
                  {/* <Image style={{height:50,width:50}} source={nowifi}/> */}
-                 <Text style={{ color: 'red', fontSize: 15 }}>Connection Lost</Text>
                 </View>
                 )
+            // }, 1000);
             } 
-             if(state.isConnected==true) { 
+             else { 
                 
-                setError(<View style={{flexDirection:'row',alignItems:'center'}}>
-                <Text style={{color:'green'}}>Back online</Text></View>)
+                setError(
+                <View style={{alignItems:'center',backgroundColor:'green',width:600}}>
+                <Text style={{color:'white'}}>Back online</Text>
+                 </View>
+                )
                 const timeout = setTimeout(() => {
                   
                     setError()
