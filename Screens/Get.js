@@ -8,8 +8,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import bin from '../Assets/bin.png';
 import { useIsFocused } from '@react-navigation/native';
-import NetInfo from '@react-native-community/netinfo';
-import nowifi from '../Assets/nowifi.png'
+// import NetInfo from '@react-native-community/netinfo';
+// import nowifi from '../Assets/nowifi.png'
 // import Toast from 'react-native-toast-message'  
 // import {Card, CardImage } from 'react-native-material-cards';
 // import NavigationBar from 'react-native-navbar';
@@ -18,8 +18,8 @@ export default function Get({ navigation }) {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isSelected, setSelection] = useState(false);
-    const [netInfo, setNetInfo] = useState('')
-    const [error, setError] = useState('')
+ 
+  
     // const[refresh,setRefresh]=useState(false)
 
     const getPosts = () => {
@@ -49,65 +49,7 @@ export default function Get({ navigation }) {
         const interval = setInterval(() => {
             getPosts()
         }, 5000)  
-        const unsubscribe = NetInfo.addEventListener((state) => {
-            setNetInfo(`connectionType:${state.type}      
-            isConnected?${state.isConnected}`)
-            // if (state.isConnected==false) {
-            //     setError(alert('Connection Lost'),
-            //      <View style={{flexDirection:'row',alignItems:'center'}}>
-                
-            //      <Image style={{height:50,width:50}} source={nowifi}/><Text style={{ color: 'red', fontSize: 15 }}>Connection Lost</Text>
-            //     </View>
-            //     )
-            // }
-             if (state.isConnected==false) {
-                // const timeout1 = setTimeout(() => {
-                  
-                    
-                    const time= setTimeout(()=> {
-                        setError(<View style={{flexDirection:'row',alignItems:'center'}}>
-                        <Image style={{height:40,width:40}} source={nowifi}/>
-                        <Text style={{ color: 'red', fontSize: 15 }}>Connection Lost</Text></View>)
-
-                    },3000);
-              
-                setError(
-                 <View style={{flexDirection:'row',alignItems:'center'}}>
-                
-                 {/* <Image style={{height:50,width:50}} source={nowifi}/> */}
-                </View>
-                )
-            // }, 1000);
-            } 
-             else { 
-                
-                setError(
-                <View style={{alignItems:'center',backgroundColor:'green',width:600}}>
-                <Text style={{color:'white'}}>Back online</Text>
-                 </View>
-                )
-                const timeout = setTimeout(() => {
-                  
-                    setError()
-                    
-                }, 2000);
-                
-                // setError()
-            }
-
-
-            // Toast.show({
-            //   type: 'error',
-            //   text1: `You're offline. Please check your internet connection`,
-            //   position: 'top',
-            // autoHide: false 
-            // })
-
-        })
-
-
-
-        return () => unsubscribe()
+       
         // clearInterval(interval)
 
 
@@ -164,7 +106,6 @@ export default function Get({ navigation }) {
     // }
 
     return (<View style={{ width: '100%', flex: 1 }}>
-        <View style={{alignItems:'center',backgroundColor:'white'}}><Text>{error}</Text></View>
         {/* <View style={{backgroundColor:'grey',width:'100%',height:'10%',flexDirection:'row'}}>
         <Text style={{fontSize:25,color:'white',fontWeight:'bold',padding:20,bottom:-30}}>INTERNS</Text>
        <TouchableOpacity onPress={()=> navigation.navigate('ADD')} style={{position:'absolute',right:10,padding:1,bottom:-15}}>
