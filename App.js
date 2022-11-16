@@ -26,9 +26,9 @@ useEffect(()=>{
           
             
             const time= setTimeout(()=> {
-                setError(<View style={{flexDirection:'row',alignItems:'center'}}>
-                <Image style={{height:40,width:40}} source={nowifi}/>
-                <Text style={{ color: 'red', fontSize: 15 }}>Connection Lost</Text></View>)
+                setError(<View style={{alignItems:'center',backgroundColor:'red',width:390}}>
+                {/* <Image style={{height:40,width:40}} source={nowifi}/> */}
+                <Text style={{ color:'white'}}>Connection Lost</Text></View>)
 
             },3000);
       
@@ -43,7 +43,7 @@ useEffect(()=>{
      else { 
         
         setError(
-        <View style={{alignItems:'center',backgroundColor:'green',width:370
+        <View style={{alignItems:'center',backgroundColor:'green',width:390
          }}>
         <Text style={{color:'white'}}>Back online</Text>
         </View>
@@ -79,7 +79,7 @@ return () => unsubscribe()
        
 
       <Navigator/>
-      <View style={{alignItems:'center',backgroundColor:'white'}}><Text>{error}</Text></View>
+      <View style={{alignItems:'center',backgroundColor:'white',height:18}}><Text>{error}</Text></View>
       <StatusBar style="auto" />
     </View>
   );
